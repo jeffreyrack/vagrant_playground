@@ -1,0 +1,33 @@
+---
+- hosts: all
+  tasks:
+    - name: install python 35
+      package:
+        name: python3.5
+        state: latest
+      become: yes
+    - name: install tmux
+      package:
+        name: tmux
+        state: latest
+      become: yes
+    - name: install git
+      package:
+        name: git
+        state: latest
+      become: yes
+    - name: Register dot files.
+      find:
+        paths: ansible/dot_files
+        hidden: yes
+      delegate_to: localhost
+      register: dot_files
+    - name: copy files to other place
+      copy:
+        src: "{{ item.path }}"
+        dest: /home/vagrant
+      with_items: "{{ dot_files.files }}"
+      tags:
+        - copy
+  roles:
+    - vim

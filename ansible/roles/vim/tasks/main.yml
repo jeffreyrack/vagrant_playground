@@ -1,0 +1,12 @@
+---
+- name: install vim
+  package:
+    name: vim
+    state: latest
+  become: yes
+- name: copy .vimrc
+  copy:
+    src: dot_files/.vimrc
+    dest: /home/vagrant
+- name: Install vim plugins.
+  shell: vi -E -s -c "source ~/.vimrc" -c PlugInstall -c qa || true
