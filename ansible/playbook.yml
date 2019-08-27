@@ -18,7 +18,7 @@
       become: yes
     - name: Register dot files.
       find:
-        paths: ansible/dot_files
+        paths: dot_files
         hidden: yes
       delegate_to: localhost
       register: dot_files
@@ -29,5 +29,9 @@
       with_items: "{{ dot_files.files }}"
       tags:
         - copy
+
+        
   roles:
     - vim
+    - kylebebak.tmux
+  tags: [tmux]

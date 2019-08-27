@@ -14,5 +14,6 @@ Vagrant.configure("2") do |config|
    # Use ansible_local so that ansible doesn't have to be installed on the local system.
    config.vm.provision "ansible_local" do |ansible|
       ansible.playbook = "ansible/playbook.yml"
+      ansible.galaxy_role_file = 'ansible/requirements.yml'
   end
 end
