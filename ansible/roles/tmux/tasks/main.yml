@@ -1,0 +1,12 @@
+---
+- name: install tmux
+  package:
+    name: tmux
+    state: latest
+- name: Check if Tmux Plugin Manager is installed
+  stat:
+    path: /home/vagrant/.tmux/plugins/tpm
+  register: tmux_plugin_manager
+- name: install Tmux Plugin Manager
+  shell: git clone https://github.com/tmux-plugins/tpm /home/vagrant/.tmux/plugins/tpm
+  when: tmux_plugin_manager.stat.exists == false

@@ -7,11 +7,6 @@
         name: python36
         state: latest
       become: yes
-    - name: install tmux
-      package:
-        name: tmux
-        state: latest
-      become: yes
     - name: install git
       package:
         name: git
@@ -27,3 +22,4 @@
         
   roles:
     - vim
+    - tmux
