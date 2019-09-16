@@ -1,12 +1,27 @@
 ---
-- name: install vim
+- name: install neovim
   package:
-    name: vim
+    name: neovim
+    state: latest
+- name: install python36-neovim
+  package:
+    name: python36-neovim
+    state: latest
+  become: yes
+- name: install python2-neovim
+  package:
+    name: python2-neovim
     state: latest
   become: yes
 - name: copy .vimrc
   copy:
     src: dot_files/.vimrc
     dest: /home/vagrant
-- name: Install vim plugins.
-  shell: vi -E -s -c "source ~/.vimrc" -c PlugInstall -c qa || true
+- name: Ensure neovim config directory exists.
+  file:
+    path: /home/vagrant/.config/nvim
+    state: directory
+- name: copy init.vim
+  copy:
+    src: init.vim
+    dest: /home/vagrant/.config/nvim/init.vim

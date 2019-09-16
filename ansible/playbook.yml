@@ -1,9 +1,10 @@
 ---
-- hosts: all
+- hosts: 127.0.0.1
+  connection: local
   tasks:
-    - name: install python 35
+    - name: install python 36
       package:
-        name: python3.5
+        name: python36
         state: latest
       become: yes
     - name: install tmux
@@ -16,22 +17,13 @@
         name: git
         state: latest
       become: yes
-    - name: Register dot files.
-      find:
-        paths: dot_files
-        hidden: yes
-      delegate_to: localhost
-      register: dot_files
     - name: copy files to other place
       copy:
-        src: "{{ item.path }}"
+        src: ./dot_files
         dest: /home/vagrant
-      with_items: "{{ dot_files.files }}"
       tags:
         - copy
 
         
   roles:
     - vim
-    - kylebebak.tmux
-  tags: [tmux]
