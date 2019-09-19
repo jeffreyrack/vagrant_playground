@@ -1,0 +1,16 @@
+---
+- name: install fortune
+  package:
+    name: fortune-mod
+    state: latest
+  become: yes
+- name: install cowsay
+  package:
+    name: cowsay
+    state: latest
+  become: yes
+- name: Ensure motd
+  lineinfile:
+    path: /etc/profile.d/motd.sh
+    line: /usr/bin/fortune | /usr/bin/cowsay -n
+  become: yes
